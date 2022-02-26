@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <style>
+            img {
+                width: 320;
+                height: 240;
+            }
+        </style>
+
+        <img id="img-stream" alt="stream" />
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            /**
+             * @param {ArrayBuffer} buf
+             */
+            function _arrayBufferToBase64(buffer) {
+                var binary = ""
+                var bytes = new Uint8Array(buffer)
+                var len = bytes.byteLength
+                for (var i = 0; i < len; i++) {
+                    binary += String.fromCharCode(bytes[i])
+                }
+                return window.btoa(binary)
+            }
+
+            var socketServer = io()
+            var img = document.getElementById("img-stream")
+            console.log("connection", socketServer)
+
+            socketServer.on("connect", () => {
+                console.log("connected")
+
+                /**
+                 * @param {ArrayBuffer} buf
+                 */
+                const onStream = (buf) => {
+                    console.log("stream", buf)
+
+                    // img.src = _arrayBufferToBase64(buf)
+
+                    const blob = new Blob([buf], {
+                        type: "image/jpeg",
+                    })
+
+                    img.src = URL.createObjectURL(blob)
+                }
+
+                socketServer.on("stream", onStream)
+            })
+        </script>
+    </body>
+</html>

@@ -1,13 +1,18 @@
 import CanvasRoot from "../../CanvasRoot"
 import render from "../../renderer"
-import { createCanvas } from "@napi-rs/canvas"
+import { Canvas, createCanvas } from "@napi-rs/canvas"
 
 import fs from "fs/promises"
 
 import { join } from "path"
 
+// import { fileURLToPath } from "url"
+// import { dirname } from "path"
+import fastify from "fastify"
+
 import { useEffect, useState } from "react"
 import { Rect } from "../../getCanvasElementClass"
+import socketIoServer from "fastify-socket.io"
 
 const App = () => {
     const [x, setX] = useState(0)
@@ -50,16 +55,45 @@ const App = () => {
     )
 }
 
-const canvasRoot = new CanvasRoot(createCanvas, 300, 320)
+// const __filename = fileURLToPath(import.meta.url)
+// const __dirname = dirname(__filename)
 
-render(<App />, canvasRoot)
+const app = fastify({ logger: true })
 
-setInterval(() => {
-    canvasRoot.draw()
-}, 1000 / 60)
+app.register(socketIoServer)
 
-setInterval(async () => {
-    const pngData = await canvasRoot.canvas.encode("png")
+app.get("/", async (req, reply) => {
+    const data = await fs.readFile(
+        join(process.cwd(), "/public/", "index.html")
+    )
+    reply.header("content-type", "text/html; charset=utf-8")
+    reply.send(data)
+})
 
-    await fs.writeFile(join(process.cwd(), "simple.png"), pngData)
-}, 500)
+app.ready((err) => {
+    if (err) throw err
+
+    const canvasRoot = new CanvasRoot(createCanvas, 300, 320)
+
+    render(<App />, canvasRoot)
+
+    setInterval(() => {
+        canvasRoot.draw()
+    }, 1000 / 60)
+
+    setInterval(async () => {
+        const canvas = canvasRoot.canvas as Canvas
+
+        const pngData = await canvas.encode("png")
+
+        // await fs.writeFile(join(process.cwd(), "simple.png"), pngData)
+
+        app.io.emit("stream", pngData)
+    }, 500)
+
+    app.io.on("connect", (socket) =>
+        console.info("Socket connected!", socket.id)
+    )
+})
+
+app.listen(3000)
