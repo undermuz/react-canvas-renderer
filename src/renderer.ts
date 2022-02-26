@@ -2,21 +2,22 @@ import getCanvasElementClass, { CanvasTypes } from "./getCanvasElementClass"
 import Reconciler from "react-reconciler"
 import CanvasRoot from "CanvasRoot"
 import BaseCanvasElement from "BaseCanvasElement"
+import { AnyCanvas2dContext } from "ICanvas"
 // import isEqual from "lodash/isequal"
 
 type Props = {
     [s: string]: any
 }
 
-type Container = CanvasRoot
+type Container<T extends AnyCanvas2dContext> = CanvasRoot<T>
 
-type Instance = BaseCanvasElement
+type Instance<T extends AnyCanvas2dContext> = BaseCanvasElement<T>
 
-type TextInstance = Instance
+type TextInstance<T extends AnyCanvas2dContext> = Instance<T>
 
-type HydratableInstance = Instance
-type PublicInstance = Instance
-type SuspenseInstance = Instance
+type HydratableInstance<T extends AnyCanvas2dContext> = Instance<T>
+type PublicInstance<T extends AnyCanvas2dContext> = Instance<T>
+type SuspenseInstance<T extends AnyCanvas2dContext> = Instance<T>
 type HostContext = {}
 type UpdatePayload = {
     [s: string]: any
@@ -25,108 +26,118 @@ type ChildSet = {}
 type TimeoutHandle = {}
 type NoTimeout = {}
 
-const reconciler = Reconciler<
-    CanvasTypes,
-    Props,
-    Container,
-    Instance,
-    TextInstance,
-    SuspenseInstance,
-    HydratableInstance,
-    PublicInstance,
-    HostContext,
-    UpdatePayload,
-    ChildSet,
-    TimeoutHandle,
-    NoTimeout
->({
-    supportsMutation: true,
+function createReconciler<T extends AnyCanvas2dContext>() {
+    return Reconciler<
+        CanvasTypes,
+        Props,
+        Container<T>,
+        Instance<T>,
+        TextInstance<T>,
+        SuspenseInstance<T>,
+        HydratableInstance<T>,
+        PublicInstance<T>,
+        HostContext,
+        UpdatePayload,
+        ChildSet,
+        TimeoutHandle,
+        NoTimeout
+    >({
+        supportsMutation: true,
 
-    createInstance(
-        type,
-        props,
-        rootContainer,
-        hostContext,
-        internalInstanceHost
-    ) {
-        const canvasElementClass = getCanvasElementClass(type)
+        createInstance(
+            type,
+            props,
+            rootContainer,
+            hostContext,
+            internalInstanceHost
+        ) {
+            const canvasElementClass = getCanvasElementClass(type)
 
-        return new canvasElementClass(rootContainer, props)
-    },
-    createTextInstance(text, rootContainer, hostContext, internalInstanceHost) {
-        throw new Error("Text should be wrapped by <text> component")
-    },
+            return new canvasElementClass<T>(rootContainer, props)
+        },
+        createTextInstance(
+            text,
+            rootContainer,
+            hostContext,
+            internalInstanceHost
+        ) {
+            throw new Error("Text should be wrapped by <text> component")
+        },
 
-    appendInitialChild(parent, child) {
-        child.append()
-    },
-    appendChild(parent, child) {
-        child.append()
-    },
-    appendChildToContainer(container, child) {
-        child.append()
-    },
-    removeChildFromContainer(container, child) {
-        child.remove()
-    },
-    removeChild(container, child) {
-        child.remove()
-    },
+        appendInitialChild(parent, child) {
+            child.append()
+        },
+        appendChild(parent, child) {
+            child.append()
+        },
+        appendChildToContainer(container, child) {
+            child.append()
+        },
+        removeChildFromContainer(container, child) {
+            child.remove()
+        },
+        removeChild(container, child) {
+            child.remove()
+        },
 
-    // commitTextUpdate(textInstance, oldText, newText) {
-    //   if (oldText !== newText) textInstance.textContent = newText;
-    // },
+        // commitTextUpdate(textInstance, oldText, newText) {
+        //   if (oldText !== newText) textInstance.textContent = newText;
+        // },
 
-    insertBefore() {},
-    shouldSetTextContent(type, props) {
-        return false
-    },
-    prepareUpdate(
-        instance,
-        type,
-        oldProps,
-        newProps,
-        rootContainer,
-        hostContext
-    ) {
-        return newProps
-        // if (type === "canvas") return newProps
+        insertBefore() {},
+        shouldSetTextContent(type, props) {
+            return false
+        },
+        prepareUpdate(
+            instance,
+            type,
+            oldProps,
+            newProps,
+            rootContainer,
+            hostContext
+        ) {
+            return newProps
+            // if (type === "canvas") return newProps
 
-        // if (!isEqual(oldProps, newProps)) {
-        //     return newProps
-        // }
+            // if (!isEqual(oldProps, newProps)) {
+            //     return newProps
+            // }
 
-        // return oldProps
-    },
-    commitUpdate(
-        instance,
-        payload,
-        type,
-        oldProps,
-        newProps,
-        internalInstanceHost
-    ) {
-        instance.updateProps(payload)
-    },
+            // return oldProps
+        },
+        commitUpdate(
+            instance,
+            payload,
+            type,
+            oldProps,
+            newProps,
+            internalInstanceHost
+        ) {
+            instance.updateProps(payload)
+        },
 
-    prepareForCommit(containerInfo) {
-        return null
-    },
-    finalizeInitialChildren() {
-        return false
-    },
-    resetAfterCommit(containerInfo) {},
-    getRootHostContext(rootContainer) {
-        return {}
-    },
-    getChildHostContext(parentHostContext, type, rootContainer) {
-        return {}
-    },
-    clearContainer(container) {},
-})
+        prepareForCommit(containerInfo) {
+            return null
+        },
+        finalizeInitialChildren() {
+            return false
+        },
+        resetAfterCommit(containerInfo) {},
+        getRootHostContext(rootContainer) {
+            return {}
+        },
+        getChildHostContext(parentHostContext, type, rootContainer) {
+            return {}
+        },
+        clearContainer(container) {},
+    })
+}
 
-const render = (element, root) => {
+function render<T extends AnyCanvas2dContext>(element, root) {
+    const reconciler = createReconciler<T>()
+
     const container = reconciler.createContainer(root, null, false, null)
+
     reconciler.updateContainer(element, container)
 }
 

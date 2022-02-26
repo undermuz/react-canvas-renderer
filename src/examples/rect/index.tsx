@@ -1,6 +1,6 @@
 import CanvasRoot from "../../CanvasRoot"
 import render from "../../renderer"
-import { Canvas, createCanvas } from "@napi-rs/canvas"
+import { Canvas, createCanvas, SKRSContext2D } from "@napi-rs/canvas"
 
 import fs from "fs/promises"
 
@@ -73,9 +73,9 @@ app.get("/", async (req, reply) => {
 app.ready((err) => {
     if (err) throw err
 
-    const canvasRoot = new CanvasRoot(createCanvas, 300, 320)
+    const canvasRoot = new CanvasRoot<SKRSContext2D>(createCanvas, 300, 320)
 
-    render(<App />, canvasRoot)
+    render<SKRSContext2D>(<App />, canvasRoot)
 
     setInterval(() => {
         canvasRoot.draw()

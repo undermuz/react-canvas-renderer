@@ -1,14 +1,15 @@
 import CanvasRoot from "CanvasRoot"
+import { AnyCanvas2dContext } from "ICanvas"
 
 export interface IBaseCanvasElementProps {
     [key: string]: any
 }
 
-class BaseCanvasElement {
-    root: CanvasRoot
+class BaseCanvasElement<T extends AnyCanvas2dContext> {
+    root: CanvasRoot<T>
     props: IBaseCanvasElementProps
 
-    constructor(root: CanvasRoot, props: IBaseCanvasElementProps) {
+    constructor(root: CanvasRoot<T>, props: IBaseCanvasElementProps) {
         this.props = props
         this.root = root
     }

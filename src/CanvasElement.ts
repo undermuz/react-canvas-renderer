@@ -1,3 +1,4 @@
+import { AnyCanvas2dContext } from "ICanvas"
 import BaseCanvasElement, { IBaseCanvasElementProps } from "./BaseCanvasElement"
 
 export interface ICanvasRectProps extends IBaseCanvasElementProps {
@@ -9,7 +10,7 @@ export interface ICanvasRectProps extends IBaseCanvasElementProps {
     stroke?: string
 }
 
-class CanvasRect extends BaseCanvasElement {
+class CanvasRect<T extends AnyCanvas2dContext> extends BaseCanvasElement<T> {
     props: ICanvasRectProps
 
     draw() {

@@ -1,23 +1,23 @@
 import BaseCanvasElement from "BaseCanvasElement"
-import { GetCanvas, ICanvas } from "ICanvas"
+import { AnyCanvas2dContext, GetCanvas, ICanvas } from "ICanvas"
 
-class CanvasRoot {
+class CanvasRoot<T extends AnyCanvas2dContext> {
     width: number = 0
     height: number = 0
     isShouldUpdate: boolean = false
 
-    elements: Array<BaseCanvasElement> = []
-    canvas: ICanvas
+    elements: Array<BaseCanvasElement<T>> = []
+    canvas: ICanvas<T>
 
-    constructor(createCanvas: GetCanvas, width: number, height: number) {
+    constructor(createCanvas: GetCanvas<T>, width: number, height: number) {
         this.width = width
         this.height = height
 
         this.canvas = createCanvas(this.width, this.height)
     }
 
-    get ctx(): CanvasRenderingContext2D {
-        return this.canvas.getContext("2d")
+    get ctx(): T {
+        return this.canvas.getContext("2d") as T
     }
 
     clear() {
@@ -34,13 +34,13 @@ class CanvasRoot {
         })
     }
 
-    appendCanvasElement(element: BaseCanvasElement) {
+    appendCanvasElement(element: BaseCanvasElement<T>) {
         this.isShouldUpdate = true
 
         this.elements.push(element)
     }
 
-    removeCanvasElement(element: BaseCanvasElement) {
+    removeCanvasElement(element: BaseCanvasElement<T>) {
         this.isShouldUpdate = true
 
         const i = this.elements.indexOf(element)
