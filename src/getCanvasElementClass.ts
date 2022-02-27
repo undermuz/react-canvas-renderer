@@ -1,6 +1,6 @@
-import { CanvasTypes } from "CanvasElements/CanvasTypes"
+import { CanvasTypes } from "./CanvasElements/CanvasTypes"
 
-import { CanvasText, CanvasRect } from "CanvasElements"
+import { CanvasText, CanvasRect } from "./CanvasElements"
 
 const getCanvasElementClass = (type: CanvasTypes) => {
     if (type === CanvasTypes.CanvasRectType) {

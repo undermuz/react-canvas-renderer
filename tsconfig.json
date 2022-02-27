@@ -5,7 +5,6 @@
         "moduleResolution": "node",
         "esModuleInterop": true,
         "target": "es2020",
-        "baseUrl": "./src",
         "module": "ESNext",
         "outDir": "./build",
         "forceConsistentCasingInFileNames": true,
