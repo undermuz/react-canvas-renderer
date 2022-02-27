@@ -1,11 +1,10 @@
-import { AnyCanvas2dContext } from "ICanvas"
+import { AnyCanvas2dContext } from "../ICanvas"
 import BaseCanvasElement, { IBaseCanvasElementProps } from "./BaseCanvasElement"
 
 export interface ICanvasTextProps extends IBaseCanvasElementProps {
     x: number
     y: number
     children: string
-    height: number
     color?: string
     style?: string
 }

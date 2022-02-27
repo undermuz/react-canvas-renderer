@@ -1,5 +1,5 @@
-import CanvasRoot from "CanvasRoot"
-import { AnyCanvas2dContext } from "ICanvas"
+import { AnyCanvas2dContext } from "../ICanvas"
+import CanvasRoot from "../CanvasRoot"
 
 export interface IBaseCanvasElementProps {
     [key: string]: any

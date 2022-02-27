@@ -1,4 +1,4 @@
-import { AnyCanvas2dContext } from "ICanvas"
+import { AnyCanvas2dContext } from "../ICanvas"
 import BaseCanvasElement, { IBaseCanvasElementProps } from "./BaseCanvasElement"
 
 export interface ICanvasRectProps extends IBaseCanvasElementProps {
