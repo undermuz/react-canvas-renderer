@@ -1,3 +1,6 @@
+import { ICanvasRectProps } from "CanvasElements/CanvasRect"
+import { ICanvasTextProps } from "CanvasElements/CanvasText"
+
 export interface CanvasGetContext<T> {
     (...args: any[]): T
 }
@@ -24,7 +27,8 @@ export interface AnyCanvas2dContext
 declare global {
     namespace JSX {
         interface IntrinsicElements {
-            "c-rect": any
+            "c-rect": ICanvasRectProps
+            "c-text": ICanvasTextProps
         }
     }
 }
