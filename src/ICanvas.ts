@@ -1,5 +1,5 @@
-import { ICanvasRectProps } from "CanvasElements/CanvasRect"
-import { ICanvasTextProps } from "CanvasElements/CanvasText"
+import { ICanvasRectProps } from "./CanvasElements/CanvasRect"
+import { ICanvasTextProps } from "./CanvasElements/CanvasText"
 
 export interface CanvasGetContext<T> {
     (...args: any[]): T
