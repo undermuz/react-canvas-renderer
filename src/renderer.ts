@@ -24,7 +24,7 @@ type UpdatePayload = {
 }
 type ChildSet = {}
 type TimeoutHandle = {}
-type NoTimeout = {}
+type NoTimeout = number
 
 function createReconciler<T extends AnyCanvas2dContext>() {
     return Reconciler<
@@ -42,7 +42,19 @@ function createReconciler<T extends AnyCanvas2dContext>() {
         TimeoutHandle,
         NoTimeout
     >({
+        now: Date.now,
         supportsMutation: true,
+        supportsPersistence: false,
+        scheduleTimeout: setTimeout,
+        cancelTimeout: clearTimeout,
+        noTimeout: -1,
+        isPrimaryRenderer: true,
+        supportsHydration: false,
+        preparePortalMount() {},
+
+        getPublicInstance(instance) {
+            return instance
+        },
 
         createInstance(
             type,
@@ -50,7 +62,7 @@ function createReconciler<T extends AnyCanvas2dContext>() {
             rootContainer,
             hostContext,
             internalInstanceHost
-        ) {
+        ): BaseCanvasElement<T> {
             const canvasElementClass = getCanvasElementClass(type)
 
             return new canvasElementClass<T>(rootContainer, props)
