@@ -1,8 +1,9 @@
-import getCanvasElementClass, { CanvasTypes } from "./getCanvasElementClass"
+import getCanvasElementClass from "./getCanvasElementClass"
 import Reconciler from "react-reconciler"
 import CanvasRoot from "CanvasRoot"
-import BaseCanvasElement from "BaseCanvasElement"
+import BaseCanvasElement from "CanvasElements/BaseCanvasElement"
 import { AnyCanvas2dContext } from "ICanvas"
+import { CanvasTypes } from "index"
 // import isEqual from "lodash/isequal"
 
 type Props = {

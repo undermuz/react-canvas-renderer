@@ -11,7 +11,7 @@ import { join } from "path"
 import fastify from "fastify"
 
 import { useEffect, useState } from "react"
-import { Rect } from "../../getCanvasElementClass"
+import { Rect } from "../../CanvasElements/CanvasTypes"
 import socketIoServer from "fastify-socket.io"
 
 const App = () => {

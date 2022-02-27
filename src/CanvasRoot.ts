@@ -1,4 +1,4 @@
-import BaseCanvasElement from "BaseCanvasElement"
+import BaseCanvasElement from "CanvasElements/BaseCanvasElement"
 import { AnyCanvas2dContext, ICanvas } from "ICanvas"
 
 class CanvasRoot<T extends AnyCanvas2dContext> {
