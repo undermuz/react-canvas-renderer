@@ -100,7 +100,7 @@ function createReconciler<T extends AnyCanvas2dContext>() {
 
         insertBefore() {},
         shouldSetTextContent(type, props) {
-            return false
+            return true
         },
         prepareUpdate(
             instance,
