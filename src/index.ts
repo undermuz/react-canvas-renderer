@@ -1,11 +1,6 @@
-declare global {
-    namespace JSXInternal {
-        interface IntrinsicElements {
-            "c-rect": unknown
-        }
-    }
-}
+import render from "./renderer"
+import CanvasRoot from "./CanvasRoot"
 
 export * from "./ICanvas"
-export * from "./CanvasRoot"
-export * from "./renderer"
+
+export { render, CanvasRoot }

@@ -73,16 +73,18 @@ app.get("/", async (req, reply) => {
 app.ready((err) => {
     if (err) throw err
 
-    const canvasRoot = new CanvasRoot<SKRSContext2D>(createCanvas, 300, 320)
+    const root = new CanvasRoot<SKRSContext2D>(300, 320)
 
-    render<SKRSContext2D>(<App />, canvasRoot)
+    root.attachCanvas(createCanvas(...root.dimensions))
+
+    render<SKRSContext2D>(<App />, root)
 
     setInterval(() => {
-        canvasRoot.draw()
+        root.draw()
     }, 1000 / 60)
 
     setInterval(async () => {
-        const canvas = canvasRoot.canvas as Canvas
+        const canvas = root.canvas as Canvas
 
         const pngData = await canvas.encode("png")
 

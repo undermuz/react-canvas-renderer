@@ -1,5 +1,5 @@
 import BaseCanvasElement from "BaseCanvasElement"
-import { AnyCanvas2dContext, GetCanvas, ICanvas } from "ICanvas"
+import { AnyCanvas2dContext, ICanvas } from "ICanvas"
 
 class CanvasRoot<T extends AnyCanvas2dContext> {
     width: number = 0
@@ -9,11 +9,19 @@ class CanvasRoot<T extends AnyCanvas2dContext> {
     elements: Array<BaseCanvasElement<T>> = []
     canvas: ICanvas<T>
 
-    constructor(createCanvas: GetCanvas<T>, width: number, height: number) {
+    constructor(width: number, height: number, canvas?: ICanvas<T>) {
         this.width = width
         this.height = height
 
-        this.canvas = createCanvas(this.width, this.height)
+        if (canvas) this.canvas = canvas
+    }
+
+    attachCanvas(canvas: ICanvas<T>) {
+        this.canvas = canvas
+    }
+
+    get dimensions(): [number, number] {
+        return [this.width, this.height]
     }
 
     get ctx(): T {
