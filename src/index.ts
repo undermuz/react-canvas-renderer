@@ -6,5 +6,6 @@ declare global {
     }
 }
 
+export * from "./ICanvas"
 export * from "./CanvasRoot"
 export * from "./renderer"
