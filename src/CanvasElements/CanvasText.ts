@@ -4,7 +4,7 @@ import BaseCanvasElement, { IBaseCanvasElementProps } from "./BaseCanvasElement"
 export interface ICanvasTextProps extends IBaseCanvasElementProps {
     x: number
     y: number
-    children: string
+    children?: string
     color?: string
     style?: string
 }
@@ -18,7 +18,7 @@ class CanvasText<T extends AnyCanvas2dContext> extends BaseCanvasElement<T> {
         const {
             x,
             y,
-            children: text,
+            children: text = "",
             style = "10px Impac",
             color = "white",
         } = this.props
