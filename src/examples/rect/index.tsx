@@ -14,6 +14,10 @@ import { useEffect, useState } from "react"
 import { Rect } from "../../CanvasElements/CanvasTypes"
 import socketIoServer from "fastify-socket.io"
 
+const NestedRect = ({ x }) => {
+    return <Rect x={x} y={50} width={30} height={40} stroke="red" fill="blue" />
+}
+
 const App = () => {
     const [x, setX] = useState(0)
     const [isShown, setIsShown] = useState(true)
@@ -40,17 +44,11 @@ const App = () => {
 
     return (
         <>
-            <Rect
-                x={x}
-                y={50}
-                width={30}
-                height={40}
-                stroke="red"
-                fill="blue"
-            />
             {isShown && (
                 <Rect x={x} y={10} width={30} height={40} stroke="red" />
             )}
+
+            <NestedRect x={x} />
         </>
     )
 }

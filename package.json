@@ -8,7 +8,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "examples:rect:start": "npm run build && node --experimental-specifier-resolution=node build/examples/rect/index.js",
+    "examples:rect": "npm run build && node --experimental-specifier-resolution=node build/examples/rect/index.js",
     "install": "tsc --build --force"
   },
   "author": {

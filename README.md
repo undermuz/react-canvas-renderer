@@ -5,8 +5,12 @@ See src/examples for more details
 
 ## Install
 
-npm i -S git@github.com:undermuz/react-canvas-renderer.git
+`npm i -S git@github.com:undermuz/react-canvas-renderer.git`
 
 ## Update
 
-npm update react-canvas-renderer
+`npm update react-canvas-renderer`
+
+## Examples
+
+`npm run examples:rect`
