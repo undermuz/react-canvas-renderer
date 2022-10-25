@@ -44,7 +44,6 @@ function createReconciler<T extends AnyCanvas2dContext>() {
         TimeoutHandle,
         NoTimeout
     >({
-        now: Date.now,
         supportsMutation: true,
         supportsPersistence: false,
         scheduleTimeout: setTimeout,
@@ -52,7 +51,20 @@ function createReconciler<T extends AnyCanvas2dContext>() {
         noTimeout: -1,
         isPrimaryRenderer: true,
         supportsHydration: false,
+        prepareScopeUpdate() {},
+        getInstanceFromScope(instance) {
+            return instance
+        },
+        detachDeletedInstance() {},
         preparePortalMount() {},
+        getCurrentEventPriority() {
+            return 1
+        },
+        getInstanceFromNode(instance) {
+            return instance
+        },
+        beforeActiveInstanceBlur() {},
+        afterActiveInstanceBlur() {},
 
         getPublicInstance(instance) {
             return instance
@@ -99,6 +111,7 @@ function createReconciler<T extends AnyCanvas2dContext>() {
         // },
 
         insertBefore() {},
+        insertInContainerBefore() {},
         shouldSetTextContent(type, props) {
             return true
         },
@@ -150,7 +163,16 @@ function createReconciler<T extends AnyCanvas2dContext>() {
 function render<T extends AnyCanvas2dContext>(element, root) {
     const reconciler = createReconciler<T>()
 
-    const container = reconciler.createContainer(root, null, false, null)
+    const container = reconciler.createContainer(
+        root,
+        null,
+        null,
+        false,
+        false,
+        "",
+        console.error,
+        null
+    )
 
     reconciler.updateContainer(element, container)
 }

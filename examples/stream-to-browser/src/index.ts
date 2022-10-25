@@ -1,5 +1,5 @@
-import CanvasRoot from "../../CanvasRoot"
-import render from "../../renderer"
+import CanvasRoot from "../../../build/CanvasRoot"
+import render from "../../../build/renderer"
 import { Canvas, createCanvas, SKRSContext2D } from "@napi-rs/canvas"
 
 import fs from "fs/promises"
@@ -10,48 +10,8 @@ import { join } from "path"
 // import { dirname } from "path"
 import fastify from "fastify"
 
-import { useEffect, useState } from "react"
-import { Rect } from "../../CanvasElements/CanvasTypes"
 import socketIoServer from "fastify-socket.io"
-
-const NestedRect = ({ x }) => {
-    return <Rect x={x} y={50} width={30} height={40} stroke="red" fill="blue" />
-}
-
-const App = () => {
-    const [x, setX] = useState(0)
-    const [isShown, setIsShown] = useState(true)
-
-    useEffect(() => {
-        const tID = setInterval(() => {
-            setX((_x) => _x + 1)
-        }, 200)
-
-        return () => {
-            clearInterval(tID)
-        }
-    }, [])
-
-    useEffect(() => {
-        const tID = setInterval(() => {
-            setIsShown((_s) => !_s)
-        }, 1000)
-
-        return () => {
-            clearInterval(tID)
-        }
-    }, [])
-
-    return (
-        <>
-            {isShown && (
-                <Rect x={x} y={10} width={30} height={40} stroke="red" />
-            )}
-
-            <NestedRect x={x} />
-        </>
-    )
-}
+import renderApp from "./App"
 
 // const __filename = fileURLToPath(import.meta.url)
 // const __dirname = dirname(__filename)
@@ -75,7 +35,7 @@ app.ready((err) => {
 
     root.attachCanvas(createCanvas(...root.dimensions))
 
-    render<SKRSContext2D>(<App />, root)
+    render<SKRSContext2D>(renderApp(), root)
 
     setInterval(() => {
         root.draw()

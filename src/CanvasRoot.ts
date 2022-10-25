@@ -53,7 +53,11 @@ class CanvasRoot<T extends AnyCanvas2dContext> {
 
         const i = this.elements.indexOf(element)
 
-        if (i < 0) throw new Error("Element not found")
+        if (i < 0) {
+            // throw new Error("Element not found")
+            console.error("Element not found")
+            return
+        }
 
         this.elements.splice(i, 1)
     }

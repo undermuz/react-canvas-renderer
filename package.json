@@ -5,10 +5,12 @@
   "main": "build",
   "exports": "./build/index.js",
   "types": "./build/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "build"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "examples:rect": "npm run build && node --experimental-specifier-resolution=node build/examples/rect/index.js",
     "install": "tsc --build --force"
   },
   "author": {
@@ -16,21 +18,23 @@
     "email": "undermuz@gmail.com",
     "url": "https://github.com/undermuz"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/undermuz/react-canvas-renderer.git"
+  },
   "type": "module",
   "license": "MIT",
   "dependencies": {
-    "fast-safe-stringify": "2.1.1",
-    "fastify": "3.27.2",
-    "fastify-socket.io": "3.0.0",
-    "react": "17.0.2",
-    "react-reconciler": "0.26.2",
-    "socket.io": "4.4.1",
-    "typescript": "4.5.5"
+    "react-reconciler": "0.28.0"
+  },
+  "peerDependencies": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "@napi-rs/canvas": "0.1.20",
+    "typescript": "4.5.5",
     "@types/node": "17.0.21",
-    "@types/react-reconciler": "0.26.4",
+    "@types/react-reconciler": "0.28.0",
     "eslint": "8.9.0",
     "eslint-plugin-react": "7.28.0"
   },

@@ -17,10 +17,12 @@ class BaseCanvasElement<T extends AnyCanvas2dContext> {
     draw() {}
 
     append() {
+        console.log("append")
         this.root.appendCanvasElement(this)
     }
 
     remove() {
+        console.log("remove")
         this.root.removeCanvasElement(this)
     }
 
