@@ -1,6 +1,6 @@
 {
   "name": "@undermuz/react-canvas-renderer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "React renderer for canvas",
   "main": "build",
   "exports": "./build/index.js",
@@ -10,8 +10,7 @@
     "build"
   ],
   "scripts": {
-    "build": "tsc",
-    "install": "tsc --build --force"
+    "build": "tsc"
   },
   "author": {
     "name": "undermuz",
