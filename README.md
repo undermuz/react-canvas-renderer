@@ -1,16 +1,12 @@
-# react-canvas-renderer
+# About
 React renderer for canvas
 
 See src/examples for more details
 
 ## Install
 
-`npm i -S git@github.com:undermuz/react-canvas-renderer.git`
-
-## Update
-
-`npm update react-canvas-renderer`
+`npm i -S @undermuz/react-canvas-renderer`
 
 ## Examples
 
-`npm run examples:rect`
+See examples
