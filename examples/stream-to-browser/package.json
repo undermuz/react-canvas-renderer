@@ -4,7 +4,8 @@
   "description": "React renderer example for stream to browser",
   "type": "module",
   "scripts": {
-    "start": "ts-node ./src/index.ts"
+    "start": "npm run build && node ./build/index.js",
+    "build": "tsc"
   },
   "author": {
     "name": "undermuz",
@@ -13,9 +14,13 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@undermuz/react-canvas-renderer": "file:../../package",
     "fast-safe-stringify": "2.1.1",
     "fastify": "3.27.2",
     "fastify-socket.io": "3.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-reconciler": "^0.29.0",
     "socket.io": "4.4.1",
     "typescript": "4.5.5"
   },
@@ -32,6 +37,7 @@
     "eslint": "8.9.0",
     "eslint-plugin-react": "7.28.0",
     "ts-node": "^10.9.1",
-    "tslib": "^2.4.0"
+    "tslib": "^2.4.0",
+    "tsx": "^3.11.0"
   }
 }

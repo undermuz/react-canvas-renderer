@@ -1,5 +1,4 @@
-import CanvasRoot from "../../../build/CanvasRoot"
-import render from "../../../build/renderer"
+import { CanvasRoot, render } from "@undermuz/react-canvas-renderer"
 import { Canvas, createCanvas, SKRSContext2D } from "@napi-rs/canvas"
 
 import fs from "fs/promises"

@@ -1,3 +1,4 @@
+import { ICanvasCustomProps } from "./CanvasElements/CanvasCustom"
 import { ICanvasRectProps } from "./CanvasElements/CanvasRect"
 import { ICanvasTextProps } from "./CanvasElements/CanvasText"
 
@@ -29,6 +30,7 @@ declare global {
         interface IntrinsicElements {
             "c-rect": ICanvasRectProps
             "c-text": ICanvasTextProps
+            "c-custom": ICanvasCustomProps<AnyCanvas2dContext>
         }
     }
 }

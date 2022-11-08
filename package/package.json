@@ -1,6 +1,6 @@
 {
   "name": "@undermuz/react-canvas-renderer",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "React renderer for canvas",
   "main": "build",
   "exports": "./build/index.js",
